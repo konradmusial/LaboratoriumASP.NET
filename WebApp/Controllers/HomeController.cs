@@ -15,6 +15,31 @@ public class HomeController : Controller
 
     public IActionResult Kalkulator()
     {
+        var op = Request.Query["op"];
+        var x = double.Parse(Request.Query["x"]);
+        var y = double.Parse(Request.Query["y"]);
+        var result = 0.0d;
+        switch (op)
+        {
+            case "add":
+            {
+                result = x + y;
+                break;
+            }
+            case"sub":
+                result = x + y;
+                break;
+            case"mul":
+                result = x + y;
+                break;
+            case"div":
+                result = x + y;
+                break;
+        }
+        ViewBag.Result = result;
+        ViewBag.x = x;
+        ViewBag.y = y;
+        ViewBag.op = op;
         return View();
     }
     public IActionResult Index()
