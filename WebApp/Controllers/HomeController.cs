@@ -13,28 +13,45 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Kalkulator()
+    public IActionResult Kalkulator(Operator op, double? x, double? y)
     {
-        var op = Request.Query["op"];
-        var x = double.Parse(Request.Query["x"]);
-        var y = double.Parse(Request.Query["y"]);
-        var result = 0.0d;
+        //var op = Request.Query["op"];
+        //var x = double.Parse(Request.Query["x"]);
+        //var y = double.Parse(Request.Query["y"]);
+        if (x is null || y is null)
+        {
+            ViewBag.ErrorMessage = "Niepoprawny format liczby x lub y lub ich brak!";
+            return View("KalkulatorError");
+        }
+        //if (op is null)
+        //{
+        //    ViewBag.ErrorMessage = "kl;";
+        //    return View("KalkulatorError");
+        //}
+        
+        double? result = 0.0d;
         switch (op)
         {
-            case "add":
-            {
+            case Operator.add:
                 result = x + y;
+                ViewBag.Operator = "+";
                 break;
-            }
-            case"sub":
+            case Operator.sub:
                 result = x - y;
+                ViewBag.Operator = "-";
                 break;
-            case"mul":
+            case Operator.mul:
                 result = x * y;
+                ViewBag.Operator = "*";
                 break;
-            case"div":
+            case Operator.div:
                 result = x / y;
+                ViewBag.Operator = ":";
                 break;
+            default:
+                ViewBag.ErrorMessage = "Nieznany operator!";
+                return View("KalkulatorError");
+                
         }
         ViewBag.Result = result;
         ViewBag.x = x;
@@ -62,3 +79,10 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
+public enum Operator
+
+{
+    add, sub, div, mul
+}
+//zadanie domowe
+//napisz metode Age, ktora przyjmuje parametr z data urodzin i wyswietla wiek w latach miesiacach i dniach
