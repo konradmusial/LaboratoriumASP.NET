@@ -27,13 +27,13 @@ public class HomeController : Controller
                 break;
             }
             case"sub":
-                result = x + y;
+                result = x - y;
                 break;
             case"mul":
-                result = x + y;
+                result = x * y;
                 break;
             case"div":
-                result = x + y;
+                result = x / y;
                 break;
         }
         ViewBag.Result = result;
