@@ -6,7 +6,7 @@ public class Calculator
     public double? x { get; set; }
     public double? y { get; set; }
     
-    double? result = 0.0d;
+    double? Result = 0.0d;
 
     public String Op
     {
@@ -15,16 +15,16 @@ public class Calculator
             switch (Operator)
             {
                 case Operators.Add:
-                    result = x + y;
+                    Result = x + y;
                     break;
                 case Operators.Sub:
-                    result = x - y;
+                    Result = x - y;
                     break;
                 case Operators.Mul:
-                    result = x * y;
+                    Result = x * y;
                     break;
                 case Operators.Div:
-                    result = x / y;
+                    Result = x / y;
                     break;
                 default:
                     return "";
