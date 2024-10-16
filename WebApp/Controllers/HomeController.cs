@@ -13,7 +13,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Kalkulator(Operator op, double? x, double? y)
+    public IActionResult Calculator(Operators op, double? x, double? y)
     {
         //var op = Request.Query["op"];
         //var x = double.Parse(Request.Query["x"]);
@@ -32,19 +32,19 @@ public class HomeController : Controller
         double? result = 0.0d;
         switch (op)
         {
-            case Operator.add:
+            case Operators.add:
                 result = x + y;
                 ViewBag.Operator = "+";
                 break;
-            case Operator.sub:
+            case Operators.sub:
                 result = x - y;
                 ViewBag.Operator = "-";
                 break;
-            case Operator.mul:
+            case Operators.mul:
                 result = x * y;
                 ViewBag.Operator = "*";
                 break;
-            case Operator.div:
+            case Operators.div:
                 result = x / y;
                 ViewBag.Operator = ":";
                 break;
@@ -79,7 +79,7 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-public enum Operator
+public enum Operators
 
 {
     add, sub, div, mul
