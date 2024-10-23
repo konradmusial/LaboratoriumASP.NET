@@ -12,53 +12,59 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+    
+    
+    
+    /*
+     * Zadanie domowe
+     * Napisz metodę Age, która przyjmuje parametr z datą urodzin i wyświetla wiek
+     * w latach, miesiącach i dniach.
+     */
 
-    public IActionResult Calculator(Operators op, double? x, double? y)
+    public IActionResult Calculator(Operators? op, double? x, double? y)
     {
-        //var op = Request.Query["op"];
+        //https://localhost:7182/Home/Calculator?op=div&x=8&y=4
+        //var op = (Request.Query["op"]);
         //var x = double.Parse(Request.Query["x"]);
         //var y = double.Parse(Request.Query["y"]);
         if (x is null || y is null)
         {
-            ViewBag.ErrorMessage = "Niepoprawny format liczby x lub y lub ich brak!";
-            return View("KalkulatorError");
+            ViewBag.ErrorMessage = "Niepoprawny format liczby x lub y lub brak parametru!";
+            return View("CalculatorError");
         }
-        //if (op is null)
-        //{
-        //    ViewBag.ErrorMessage = "kl;";
-        //    return View("KalkulatorError");
-        //}
+
+        if (op is null)
+        {
+            ViewBag.ErrorMessage = "Nieznany operator!";
+            return View("CalculatorError");
+        }
         
         double? result = 0.0d;
         switch (op)
         {
-            case Operators.add:
+            case Operators.Add:
                 result = x + y;
                 ViewBag.Operator = "+";
                 break;
-            case Operators.sub:
+            case Operators.Sub:
                 result = x - y;
                 ViewBag.Operator = "-";
                 break;
-            case Operators.mul:
+            case Operators.Mul:
                 result = x * y;
                 ViewBag.Operator = "*";
                 break;
-            case Operators.div:
+            case Operators.Div:
                 result = x / y;
                 ViewBag.Operator = ":";
                 break;
-            default:
-                ViewBag.ErrorMessage = "Nieznany operator!";
-                return View("KalkulatorError");
-                
         }
         ViewBag.Result = result;
-        ViewBag.x = x;
-        ViewBag.y = y;
-        ViewBag.op = op;
+        ViewBag.X = x;
+        ViewBag.Y = y;
         return View();
     }
+
     public IActionResult Index()
     {
         return View();
@@ -68,6 +74,7 @@ public class HomeController : Controller
     {
         return View();
     }
+
     public IActionResult Privacy()
     {
         return View();
@@ -79,10 +86,8 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-public enum Operators
 
+public enum Operators
 {
-    add, sub, div, mul
+    Add, Sub, Mul, Div
 }
-//zadanie domowe
-//napisz metode Age, ktora przyjmuje parametr z data urodzin i wyswietla wiek w latach miesiacach i dniach
