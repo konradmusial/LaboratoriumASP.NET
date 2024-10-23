@@ -15,7 +15,7 @@ public class ContactController : Controller
                 LastName = "Kaczynski",
                 Email = "jarekpis@wp.pl",
                 PhoneNumber = "123 123 213",
-                BirthDate = new DateOnly(year: 2000, month: 10, day: 21)
+                BirthDate = new DateOnly(year: 1949, month: 6, day:18)
 
             }
         },
@@ -56,11 +56,19 @@ private static int _currentId = 3;
     [HttpPost]
     public IActionResult Add(ContactModel model)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return View();
         }
         // zapisanie danych 
-        return View("Index");
+        model.Id = ++_currentId;
+        _contacts.Add(model.Id, model);
+        return View("Index", _contacts);
+    }
+
+    public IActionResult Delete(int id)
+    {
+        _contacts.Remove(id);
+        return View("Index", _contacts);
     }
 }
