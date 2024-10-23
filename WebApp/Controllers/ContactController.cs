@@ -71,4 +71,9 @@ private static int _currentId = 3;
         _contacts.Remove(id);
         return View("Index", _contacts);
     }
+
+    public IActionResult Details(int id)
+    {
+        return View(_contacts[id]);
+    }
 }
